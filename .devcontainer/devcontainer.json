@@ -1,0 +1,28 @@
+{
+  "name": "go-screener-workflow",
+  "service": "workspace",
+  "postAttachCommand": "./.devcontainer/post-attach.sh",
+  "customizations": {},
+  "userEnvProbe": "loginInteractiveShell",
+  "dockerComposeFile": "docker-compose.yaml",
+  "workspaceFolder": "/home/vscode/go-screener-workflow",
+  "shutdownAction": "stopCompose",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/direnv:1": {},
+    "ghcr.io/guiyomh/features/just:0": {}
+  },
+  "forwardPorts": [
+    8081,
+    6434
+  ],
+  "portsAttributes": {
+    "8081": {
+      "label": "httpbin",
+      "onAutoForward": "silent"
+    },
+    "6434": {
+      "label": "temporal-ui",
+      "onAutoForward": "silent"
+    }
+  }
+}

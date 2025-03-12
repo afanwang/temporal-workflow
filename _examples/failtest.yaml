@@ -1,0 +1,5 @@
+# This file conforms to pipeline.PipelineParams
+git_url: "https://github.com/afanwang/go-sample.git"
+test_flags: ["-tags", "failtest"]
+build_flags: ["-tags", "failbuild"]
+generate_flags: ["-tags", "failgenerate"]

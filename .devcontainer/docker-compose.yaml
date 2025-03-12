@@ -1,0 +1,28 @@
+services:
+  workspace:
+    image: "mcr.microsoft.com/devcontainers/go:1-1.22-bookworm"
+    entrypoint: ["sleep", "infinity"]
+    volumes:
+      - "../:/home/vscode/go-screener-workflow"
+      - "~/.ssh:/home/vscode/.ssh:ro"
+  temporal:
+    # image: "cgr.dev/chainguard/temporal-admin-tools:latest"
+    image: "temporalio/admin-tools:latest"
+    entrypoint: ["temporal", "server", "start-dev"]
+    network_mode: "service:workspace"
+    command:
+      - "--ip=0.0.0.0"
+      - "--port=6433"
+      - "--ui-port=6434"
+      - "--db-filename=/etc/temporal/temporal.db"
+    volumes:
+      - "./volumes/temporal:/etc/temporal"
+    healthcheck:
+      test: bash -c "exec 6<> /dev/tcp/localhost/6433"
+  go-httpbin:
+    image: "docker.io/mccutchen/go-httpbin"
+    entrypoint: ["/bin/go-httpbin"]
+    command:
+      - "--host=0.0.0.0"
+      - "--port=8081"
+    network_mode: "service:workspace"

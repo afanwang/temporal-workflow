@@ -1,0 +1,5 @@
+.devcontainer/volumes/*
+!/.devcontainer/volumes/.keep
+
+bin/*
+!bin/.keep
